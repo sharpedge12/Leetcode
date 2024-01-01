@@ -1,0 +1,48 @@
+class Solution {
+ public int maximumLength(String str) {  
+        List<List<Integer>> dp = new ArrayList<>(26); 
+        int ans = 0;
+     
+       
+        for (int z = 0; z < 26; z++) {  
+            dp.add(new ArrayList<>());  
+        }  
+     
+     
+        for (int i = 0; i < str.length(); i++) {  
+            int j = i;  
+            
+            
+            //check if element are equal then loop
+            while (j < str.length() && str.charAt(j) == str.charAt(i)) {  
+                j++;  
+            }  
+            
+            
+            dp.get(str.charAt(i) - 'a').add(j - i);  
+            i = j - 1;
+            
+            
+        }  
+     
+     
+        for (List<Integer> x : dp) {  
+            //skip if empty
+            if (x.isEmpty()) continue;
+            
+            //sort
+            x.sort(Integer::compareTo);
+             
+            
+            ans = Math.max(ans, x.get(x.size()  - 1) - 2);  
+            if (x.size() > 1) {  
+                ans = Math.max(ans, Math.min(x.get(x.size() - 1) - 1, x.get(x.size() - 2)));  
+            }  
+            if (x.size() > 2) {  
+                ans = Math.max(ans, x.get(x.size() - 3));  
+            }  
+        }  
+  
+        if (ans == 0) ans = -1;  
+        return ans;  
+    }}
