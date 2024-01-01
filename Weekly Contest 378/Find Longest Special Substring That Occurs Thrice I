@@ -1,0 +1,39 @@
+import java.util.ArrayList;  
+import java.util.List;  
+  
+class Solution {  
+    public int maximumLength(String s) {  
+        HashMap<String , Integer> map = new HashMap<>();
+        for(int i =0 ;i < s.length() ; i++){
+            for(int j = i+1 ; j <= s.length() ; j++){
+                String temp = s.substring(i , j);
+                map.put( temp , map.getOrDefault(temp, 0) + 1);
+            }
+        }
+
+
+
+        int max = -1 ;
+
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            if(entry.getValue() >= 3) {
+                String temp =  entry.getKey();
+                boolean flag = true;
+                for(int i = 0 ;i < temp.length() -1 ; i++){
+                    if (temp.charAt(i) != temp.charAt(i + 1)) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag){
+                    max = Math.max(max,temp.length());
+            }
+            }
+        }
+
+       return max;
+
+    }  
+     
+
+}
